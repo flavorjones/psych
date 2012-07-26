@@ -2,7 +2,7 @@ module Psych
   module Visitors
     class Emitter < Psych::Visitors::Visitor
       def initialize io, options = {}
-        opts = [:indentation, :canonical, :line_width].find_all { |opt|
+        opts = Handler::DumperOptions::ATTRIBUTES.find_all { |opt|
           options.key?(opt)
         }
 

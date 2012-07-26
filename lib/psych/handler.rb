@@ -13,7 +13,9 @@ module Psych
     ###
     # Configuration options for dumping YAML.
     class DumperOptions
-      attr_accessor :line_width, :indentation, :canonical
+      ATTRIBUTES = [:line_width, :indentation, :canonical] # :nodoc:
+
+      attr_accessor *ATTRIBUTES
 
       def initialize
         @line_width  = 0
