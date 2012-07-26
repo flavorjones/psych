@@ -322,7 +322,11 @@ module Psych
       end
 
       def visit_Symbol o
-        @emitter.scalar ":#{o}", nil, nil, true, false, Nodes::Scalar::ANY
+        if @options[:symbols_as_strings]
+          visit_String o.to_s
+        else
+          @emitter.scalar ":#{o}", nil, nil, true, false, Nodes::Scalar::ANY
+        end
       end
 
       private

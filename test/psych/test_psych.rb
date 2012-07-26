@@ -26,6 +26,17 @@ class TestPsych < Psych::TestCase
     assert_match(/^.*'b'.*'c'$/, yml)
   end
 
+  def test_symbols_as_strings
+    yml = Psych.dump({:a => {'b' => 'c'}})
+    assert_match(/^:a/, yml)
+
+    yml = Psych.dump({:a => {'b' => 'c'}}, {:symbols_as_strings => true})
+    assert_match(/^a/, yml)
+
+    yml = Psych.dump({:a => {'b' => 'c'}}, {:symbols_as_strings => true, :always_quote_strings => true})
+    assert_match(/^'a'/, yml)
+  end
+
   def test_canonical
     yml = Psych.dump({:a => {'b' => 'c'}}, {:canonical => true})
     assert_match(/\? ! "b/, yml)
