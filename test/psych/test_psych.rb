@@ -18,6 +18,14 @@ class TestPsych < Psych::TestCase
     assert_match(/^[ ]{5}b/, yml)
   end
 
+  def test_always_quote_strings
+    yml = Psych.dump({:a => {'b' => 'c'}})
+    assert_match(/^.* b.* c$/, yml)
+
+    yml = Psych.dump({:a => {'b' => 'c'}}, {:always_quote_strings => true})
+    assert_match(/^.*'b'.*'c'$/, yml)
+  end
+
   def test_canonical
     yml = Psych.dump({:a => {'b' => 'c'}}, {:canonical => true})
     assert_match(/\? ! "b/, yml)

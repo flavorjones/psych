@@ -228,7 +228,7 @@ module Psych
 
       def visit_String o
         plain = false
-        quote = false
+        quote = !! @options[:always_quote_strings]
         style = Nodes::Scalar::ANY
 
         if binary?(o)
@@ -239,7 +239,7 @@ module Psych
         else
           str   = o
           tag   = nil
-          quote = !(String === @ss.tokenize(o))
+          quote = !(String === @ss.tokenize(o)) if !quote
           plain = !quote
         end
 
